@@ -95,13 +95,10 @@ func phoneticBengaliCalendar(calender [6][7]int, today int) {
 
 // firstDayIndex return the months first day index
 func firstDayIndex(date, dateIndex int) int {
-	a := date - (dateIndex + 1)
-	r := a % 7
-	result := (6 - r) + 1
-	if result >= 7 {
-		return result - 7
-	}
-	return result
+	position := (date - 1) % 7
+  	offset := dateIndex - position
+  
+  	return (( offset + 7) % 7)
 }
 
 // enToBnNumber covert english number to bengali number String
