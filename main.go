@@ -3,7 +3,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"math"
 	"os"
 	"time"
 
@@ -18,19 +17,18 @@ func main() {
 	crntDateIndx := int(now.Weekday())
 	frstDateIndx := firstDayIndex(crntDate, crntDateIndx)
 
-	totalRow := int(math.Ceil(float64(mnthTotalDys) / 7.0))
 	calender := [6][7]int{}
 
-	fstIndex := frstDateIndx
-	tmpDate := 1
-	for i := 0; i < totalRow; i++ {
-		for j := 0; j < 7; j++ {
-			if j >= fstIndex && tmpDate <= mnthTotalDys {
-				calender[i][j] = tmpDate
-				tmpDate++
-			}
+	row := 0
+	col := frstDateIndx
+	for i := 1; i <= mnthTotalDys; i++ {
+		calender[row][col] = i
+
+		col = col + 1
+		if col > 6 {
+			row = row + 1
+			col = 0
 		}
-		fstIndex = 0
 	}
 
 	isPh := flag.Bool("p", false, "show bengali calendar in english phonetic")
@@ -97,7 +95,7 @@ func phoneticBengaliCalendar(calender [6][7]int, today int) {
 func firstDayIndex(date, dateIndex int) int {
 	position := (date - 1) % 7
   	offset := dateIndex - position
-  
+
   	return (( offset + 7) % 7)
 }
 
