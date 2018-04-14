@@ -38,7 +38,7 @@ func main() {
 		heading := fmt.Sprintf("   %s %s", p.BengaliMonth.Phonetic, p.BengaliYear.Phonetic)
 		fmt.Println(bold(heading))
 		phoneticBengaliCalendar(calender, crntDate)
-		os.Exit(1)
+		os.Exit(0)
 	}
 	heading := fmt.Sprintf("\t     %s %s", p.BengaliMonth.Bengali, p.BengaliYear.Bengali)
 	fmt.Println(bold(heading))
@@ -58,7 +58,11 @@ func bengaliCalender(calender [6][7]int, today int) {
 						fmt.Print(enToBnNumber(dt), "   ")
 					}
 				} else {
-					fmt.Print(enToBnNumber(dt), "    ")
+					if dt == today {
+						fmt.Print(highlight(enToBnNumber(dt)), "    ")
+					} else {
+						fmt.Print(enToBnNumber(dt), "    ")
+					}
 				}
 			} else {
 				fmt.Print("     ")
@@ -81,7 +85,11 @@ func phoneticBengaliCalendar(calender [6][7]int, today int) {
 						fmt.Print(dt, " ")
 					}
 				} else {
-					fmt.Print(dt, "  ")
+					if dt == today {
+						fmt.Print(highlight(fmt.Sprintf("%d", dt)), "  ")
+					} else {
+						fmt.Print(dt, "  ")
+					}
 				}
 			} else {
 				fmt.Print("   ")
@@ -94,9 +102,9 @@ func phoneticBengaliCalendar(calender [6][7]int, today int) {
 // firstDayIndex return the months first day index
 func firstDayIndex(date, dateIndex int) int {
 	position := (date - 1) % 7
-  	offset := dateIndex - position
+	offset := dateIndex - position
 
-  	return (( offset + 7) % 7)
+	return ((offset + 7) % 7)
 }
 
 // enToBnNumber covert english number to bengali number String
