@@ -35,7 +35,7 @@ func main() {
 	flag.Parse()
 
 	if *isPh {
-		heading := fmt.Sprintf("   %s %s", p.BengaliMonth.Phonetic, p.BengaliYear.Phonetic)
+		heading := fmt.Sprintf("\t%s %s", p.BengaliMonth.Phonetic, p.BengaliYear.Phonetic)
 		fmt.Println(bold(heading))
 		phoneticBengaliCalendar(calender, crntDate)
 		os.Exit(0)
@@ -73,22 +73,22 @@ func bengaliCalender(calender [6][7]int, today int) {
 }
 
 func phoneticBengaliCalendar(calender [6][7]int, today int) {
-	fmt.Println("S  M  T  W  T  F  S")
+	fmt.Println("Su  Mo  Tu  We  Th  Fr  Sa")
 	for i := 0; i < len(calender); i++ {
 		for j := 0; j < 7; j++ {
 			dt := calender[i][j]
 			if dt != 0 {
 				if dt > 9 {
 					if dt == today {
-						fmt.Print(highlight(fmt.Sprintf("%d", dt)), " ")
-					} else {
-						fmt.Print(dt, " ")
-					}
-				} else {
-					if dt == today {
 						fmt.Print(highlight(fmt.Sprintf("%d", dt)), "  ")
 					} else {
 						fmt.Print(dt, "  ")
+					}
+				} else {
+					if dt == today {
+						fmt.Print(highlight(fmt.Sprintf("%d", dt)), "   ")
+					} else {
+						fmt.Print(dt, "   ")
 					}
 				}
 			} else {
